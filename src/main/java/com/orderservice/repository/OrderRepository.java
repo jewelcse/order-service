@@ -1,15 +1,17 @@
 package com.orderservice.repository;
 
 
-import com.orderservice.dto.OrderDto;
 import com.orderservice.model.Order;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface OrderRepository extends MongoRepository<Order,String> {
-    List<Order> findAllByCustomerCustomerId(String id);
-    List<Order> findAllByCustomerMobileNumber(String mobileNumber);
+public interface OrderRepository extends MongoRepository<Order,Integer> {
+    List<Order> findAllByCustomer_CustomerId(int id);
+    List<Order> findAllByStatus(String str);
+    Optional<Order> findById(String id);
+
 }

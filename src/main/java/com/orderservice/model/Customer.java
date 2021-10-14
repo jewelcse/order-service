@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Customer {
 
-    private String customerId;
+    private int customerId;
     private String customerFirstName;
     private String customerLastName;
     private String mobileNumber;

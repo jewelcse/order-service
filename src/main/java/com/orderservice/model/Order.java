@@ -1,27 +1,26 @@
 package com.orderservice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-
+import javax.persistence.*;
 import java.util.List;
 
-@Document
+
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Setter
+@Getter
+@Document("orders")
 public class Order {
+
 
     @Id
     private String id;
-	private List<Product> products;
 	private Customer customer;
+	private List<Product> products;
     private int quantity;
     private double totalAmount;
-    private Status status;
+    private String status;
 
 
 }

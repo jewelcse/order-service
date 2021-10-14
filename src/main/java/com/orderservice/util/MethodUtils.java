@@ -5,12 +5,23 @@ import org.codehaus.jettison.json.JSONObject;
 import org.springframework.http.HttpStatus;
 
 import java.sql.Date;
+import java.util.Random;
 
 
 public class MethodUtils {
 
 
 	private MethodUtils() {
+	}
+
+	public static String generateOrderId(){
+		int size=10;
+		String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+		Random rnd = new Random();
+		StringBuilder sb = new StringBuilder(size);
+		for (int i = 0; i < size; i++)
+			sb.append(chars.charAt(rnd.nextInt(chars.length())));
+		return sb.toString();
 	}
 
 		public static String prepareErrorJSON(HttpStatus status, Exception ex) {

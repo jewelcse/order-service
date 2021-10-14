@@ -1,5 +1,6 @@
 package com.orderservice.service;
 
+import com.orderservice.dto.OrderRequestDto;
 import com.orderservice.model.Order;
 
 import java.util.List;
@@ -7,11 +8,12 @@ import java.util.Optional;
 
 public interface OrderService {
 
-    public Order saveOrder(Order order);
-    public Optional<Order> getOrderById(String id);
+    Order saveOrder(OrderRequestDto order);
+    Optional<Order> getOrderById(String id);
     List<Order> getOrders();
-
-    List<Order> getOrdersByCustomerId(String id);
-
-    List<Order> getOrdersByCustomerMobileNumber(String mobileNumber);
+    List<Order> getOrdersByCustomerId(int id);
+    List<Order> getCanceledOrders();
+    List<Order> getCompletedOrders();
+    List<Order> getProcessingOrders();
+    List<Order> getOrdersByStatus(String status);
 }
