@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("api/order-service/")
+@RequestMapping("api/v1/order-service/")
 public class OrderController {
 
     private OrderService orderService;
