@@ -4,7 +4,6 @@ package com.orderservice.controller;
 import com.orderservice.dto.OrderRequestDto;
 import com.orderservice.exception.ApplicationException;
 import com.orderservice.service.OrderService;
-import com.orderservice.service.OrderServiceImpl;
 import com.orderservice.util.JsonResponseEntityModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
