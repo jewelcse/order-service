@@ -21,6 +21,8 @@ public class Order {
     private int quantity;
     private double totalAmount;
     private String status;
+    private OrderPriority priority;
+    private BillingAddress billingAddress;
 
 
 }
