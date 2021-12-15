@@ -1,6 +1,14 @@
 package com.orderservice.model;
 
-public class BillingAddress extends BaseModel{
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ShippingAddress{
 
     private String fullName;
     private long phoneNumber;

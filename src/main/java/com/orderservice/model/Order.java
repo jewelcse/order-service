@@ -11,18 +11,16 @@ import java.util.List;
 @Setter
 @Getter
 @Document("orders")
-public class Order {
+public class Order extends BaseModel{
 
-
-    @Id
-    private String id;
 	private Customer customer;
 	private List<Product> products;
+    private ShippingAddress shippingAddress;
     private int quantity;
+    private double shippingCharge;
+    private double subTotal;
     private double totalAmount;
-    private String status;
     private OrderPriority priority;
-    private BillingAddress billingAddress;
-
+    private String status;
 
 }

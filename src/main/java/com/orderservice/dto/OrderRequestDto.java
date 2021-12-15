@@ -1,5 +1,6 @@
 package com.orderservice.dto;
 
+import com.orderservice.model.ShippingAddress;
 import com.orderservice.model.Customer;
 import com.orderservice.model.OrderPriority;
 import com.orderservice.model.Product;
@@ -16,7 +17,9 @@ public class OrderRequestDto {
 
     private Customer customer;
     private List<Product> products = new ArrayList<>();
-    private OrderPriority priority = OrderPriority.LOW;
+    private OrderPriority priority;
+    private ShippingAddress shippingAddress;
+    private double shippingCharge;
 
 
 

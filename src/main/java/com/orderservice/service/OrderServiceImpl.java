@@ -45,11 +45,14 @@ public class OrderServiceImpl implements OrderService{
             product.setProductFinalPrice(product.getProductOriginalPrice() - ((product.getDiscountPercentage()*product.getProductOriginalPrice())/100));
         });
 
-        double totalCost = products.stream().mapToDouble(product ->
+        double subTotalCost = products.stream().mapToDouble(product ->
                 product.getProductFinalPrice() * product.getQuantity()
         ).sum();
         Integer totalQuantity = products.stream().mapToInt( product -> product.getQuantity()).sum();
 
+
+
+        double totalCost = subTotalCost + orderRequestDto.getShippingCharge();
 
         Order order = new Order();
         order.setId(MethodUtils.generateOrderId());
@@ -57,6 +60,10 @@ public class OrderServiceImpl implements OrderService{
         order.setProducts(orderRequestDto.getProducts());
         order.setStatus(Status.PROCESSING.toString());
 
+        order.setShippingAddress(orderRequestDto.getShippingAddress());
+        order.setPriority(orderRequestDto.getPriority());
+        order.setShippingCharge(orderRequestDto.getShippingCharge());
+        order.setSubTotal(subTotalCost);
         order.setTotalAmount(totalCost);
         order.setQuantity(totalQuantity);
         publishOrderForPayment(order);
