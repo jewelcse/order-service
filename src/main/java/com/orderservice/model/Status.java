@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 public enum Status {
      PROCESSING("PROCESSING"),
      COMPLETED("COMPLETED"),
+     CASHONDELIVERY("CODL"),
      PAID("PAID"),
      CANCELED("CANCELED");
 
@@ -14,8 +15,5 @@ public enum Status {
           this.type = type;
      }
 
-     Status() {
-
-     }
 
 }
