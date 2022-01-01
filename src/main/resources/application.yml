@@ -1,6 +1,14 @@
 spring:
   application:
     name: order-service
+#  security:
+#    oauth2:
+#      resourceserver:
+#        opaque-token:
+#          introspection-uri: http://localhost:9191/oauth/check_token
+#          client-id: web
+#          client-secret: web
+
 
   rabbitmq:
     host: localhost

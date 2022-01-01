@@ -1,6 +1,7 @@
 package com.orderservice.controller;
 
 
+import com.orderservice.dto.CustomPrincipal;
 import com.orderservice.dto.OrderRequestDto;
 import com.orderservice.exception.ApplicationException;
 import com.orderservice.service.OrderService;
@@ -8,14 +9,21 @@ import com.orderservice.util.JsonResponseEntityModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
 @RequestMapping("api/v1/order-service/")
 public class OrderController {
 
-    private OrderService orderService;
+    private final OrderService orderService;
     JsonResponseEntityModel responseEntityModel = new JsonResponseEntityModel();
 
 
@@ -35,6 +43,11 @@ public class OrderController {
 
     @GetMapping("/get/all-orders")
     public ResponseEntity<JsonResponseEntityModel> getOrders(){
+
+        //String userEmail = ((CustomPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail();
+
+        //System.out.println("-----------" + userEmail);
+
         responseEntityModel.setSuccess(true);
         responseEntityModel.setData(orderService.getOrders());
         responseEntityModel.setStatusCode("200");
@@ -82,5 +95,25 @@ public class OrderController {
         responseEntityModel.setStatusCode("200");
         return new ResponseEntity<>(responseEntityModel,HttpStatus.OK);
     }
+
+    @GetMapping("/admins")
+    @PreAuthorize("hasAuthority('role_admin')")
+    public String context() {
+        CustomPrincipal principal = (CustomPrincipal) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        return principal.getUsername() + " " + principal.getEmail();
+    }
+
+    @GetMapping("/users")
+    @PreAuthorize("hasAnyAuthority('role_admin','role_user')")
+    public String secured(CustomPrincipal principal) {
+        return principal.getUsername() + " " + principal.getEmail();
+    }
+
+    @GetMapping("/common")
+    public String general() {
+        return "common api success";
+    }
+
 
 }

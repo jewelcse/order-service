@@ -9,7 +9,7 @@ public enum Status {
      PAID("PAID"),
      CANCELED("CANCELED");
 
-     private String type;
+     private final String type;
 
      Status(String type){
           this.type = type;
