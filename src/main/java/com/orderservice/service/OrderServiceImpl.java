@@ -21,8 +21,8 @@ import java.util.*;
 @Service
 public class OrderServiceImpl implements OrderService{
 
-    private OrderRepository orderRepository;
-    private RabbitTemplate rabbitTemplate;
+    private final OrderRepository orderRepository;
+    private final RabbitTemplate rabbitTemplate;
     private OrderDto orderDto;
 
     @Autowired

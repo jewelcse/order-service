@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UpdateOrderListener {
 
-    private OrderServiceImpl orderService;
+    private final OrderServiceImpl orderService;
 
     @Autowired
     public UpdateOrderListener(OrderServiceImpl orderService){
