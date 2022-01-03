@@ -20,9 +20,6 @@ public class OAuth2ResourceServer extends ResourceServerConfigurerAdapter {
 
     private static final String ORDER_RESOURCE_ID = "order";
 
-
-
-
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
