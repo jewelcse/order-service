@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -37,9 +38,8 @@ public class OrderController {
 
 
     @PostMapping("/create-order")
-    public ResponseEntity<JsonResponseEntityModel> createOrder(@RequestBody OrderRequestDto order, Principal principal){
+    public ResponseEntity<JsonResponseEntityModel> createOrder(@RequestBody OrderRequestDto order){
         responseEntityModel.setSuccess(true);
-        System.out.println("-------------------"+principal);
         responseEntityModel.setData(orderService.saveOrder(order));
         responseEntityModel.setStatusCode("200");
         return new ResponseEntity<>(responseEntityModel, HttpStatus.CREATED);
@@ -47,15 +47,6 @@ public class OrderController {
 
     @GetMapping("/get/all-orders")
     public ResponseEntity<JsonResponseEntityModel> getOrders(){
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object details = authentication.getDetails();
-
-        System.out.println( " authentication "+ authentication.getPrincipal());
-        System.out.println();
-        System.out.println("details "+ details);
-
-
         responseEntityModel.setSuccess(true);
         responseEntityModel.setData(orderService.getOrders());
         responseEntityModel.setStatusCode("200");

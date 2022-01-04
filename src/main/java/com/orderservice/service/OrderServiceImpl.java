@@ -1,9 +1,11 @@
 package com.orderservice.service;
 
 import com.orderservice.config.OrderConfig;
+import com.orderservice.dto.CustomPrincipal;
 import com.orderservice.dto.OrderDto;
 import com.orderservice.dto.OrderRequestDto;
 import com.orderservice.exception.ApplicationException;
+import com.orderservice.model.Customer;
 import com.orderservice.model.Order;
 import com.orderservice.model.Product;
 import com.orderservice.model.Status;
@@ -14,7 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
@@ -24,6 +30,10 @@ public class OrderServiceImpl implements OrderService{
     private final OrderRepository orderRepository;
     private final RabbitTemplate rabbitTemplate;
     private OrderDto orderDto;
+
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -56,7 +66,7 @@ public class OrderServiceImpl implements OrderService{
 
         Order order = new Order();
         order.setId(MethodUtils.generateOrderId());
-        order.setCustomer(orderRequestDto.getCustomer());
+        order.setCustomerId(getUser().getId());
         order.setProducts(orderRequestDto.getProducts());
         order.setStatus(Status.PROCESSING.toString());
 
@@ -82,7 +92,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public List<Order> getOrdersByCustomerId(int id) {
-        return orderRepository.findAllByCustomer_CustomerId(id);
+        return orderRepository.findAllByCustomerId(id);
     }
 
 
@@ -121,12 +131,19 @@ public class OrderServiceImpl implements OrderService{
         orderDto = new OrderDto();
         orderDto.setOrderId(order.getId());
         orderDto.setStatus(Status.PROCESSING.toString());
-        orderDto.setCustomerId(order.getCustomer().getCustomerId());
+        orderDto.setCustomerId(getUser().getId());
         orderDto.setAmount(order.getTotalAmount());
         rabbitTemplate.convertAndSend(OrderConfig.ORDER_CREATE_QUEUE,orderDto);
     }
 
     public void UpdateOrder(Order order){
         orderRepository.save(order);
+    }
+
+    private CustomPrincipal getUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Map<String, String> vars = new HashMap<>();
+        vars.put("username", authentication.getPrincipal().toString());
+        return restTemplate.getForObject("http://localhost:9191/api/v1/auth-service/user/{username}",CustomPrincipal.class,vars);
     }
 }

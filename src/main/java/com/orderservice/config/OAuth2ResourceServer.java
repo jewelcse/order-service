@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
@@ -50,6 +51,13 @@ public class OAuth2ResourceServer extends ResourceServerConfigurerAdapter {
                 .resourceId(ORDER_RESOURCE_ID);
 
     }
+
+    @Bean
+    RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
+
+
 
 /*
 ///
