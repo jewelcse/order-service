@@ -13,6 +13,7 @@ import com.orderservice.repository.OrderRepository;
 import com.orderservice.util.MethodUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -58,7 +59,7 @@ public class OrderServiceImpl implements OrderService{
         double subTotalCost = products.stream().mapToDouble(product ->
                 product.getProductFinalPrice() * product.getQuantity()
         ).sum();
-        Integer totalQuantity = products.stream().mapToInt( product -> product.getQuantity()).sum();
+        int totalQuantity = products.stream().mapToInt(Product::getQuantity).sum();
 
 
 
@@ -81,18 +82,21 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    @Cacheable(value = "order",key = "#id")
     public Optional<Order>  getOrderById(String id) {
         return orderRepository.findById(id);
     }
 
     @Override
+    @Cacheable(value = "orders")
     public List<Order> getOrders() {
         return orderRepository.findAll();
     }
 
     @Override
-    public List<Order> getOrdersByCustomerId(int id) {
-        return orderRepository.findAllByCustomerId(id);
+    @Cacheable(value = "orders",key = "#customerId")
+    public List<Order> getOrdersByCustomerId(int customerId) {
+        return orderRepository.findAllByCustomerId(customerId);
     }
 
 

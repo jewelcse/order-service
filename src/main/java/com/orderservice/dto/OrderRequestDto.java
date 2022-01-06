@@ -19,5 +19,6 @@ public class OrderRequestDto {
     private OrderPriority priority;
     private ShippingAddress shippingAddress;
     private double shippingCharge;
+    private String voucherCode;
 
 }

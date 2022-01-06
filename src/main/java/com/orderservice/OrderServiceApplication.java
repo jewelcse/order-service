@@ -2,6 +2,7 @@ package com.orderservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 
 @SpringBootApplication
+@EnableCaching
 public class OrderServiceApplication {
 
 	public static void main(String[] args) {

@@ -27,7 +27,7 @@ import java.util.Map;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class OAuth2ResourceServer extends ResourceServerConfigurerAdapter {
 
-    private static final String ORDER_RESOURCE_ID = "order";
+    private static final String RESOURCE_ID = "order";
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -48,7 +48,7 @@ public class OAuth2ResourceServer extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception{
         resources
-                .resourceId(ORDER_RESOURCE_ID);
+                .resourceId(RESOURCE_ID);
 
     }
 
