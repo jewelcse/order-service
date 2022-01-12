@@ -122,6 +122,11 @@ public class OrderServiceImpl implements OrderService{
         return orderRepository.findAllByStatus(status);
     }
 
+    @Override
+    public Order getOrderDetailsByOrderId(String orderId) {
+        return orderRepository.findById(orderId).get();
+    }
+
     private Status checkValidStatus(String str){
 
         return Arrays.stream(Status.values())

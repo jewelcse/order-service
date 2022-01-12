@@ -16,4 +16,6 @@ public interface OrderService {
     List<Order> getCompletedOrders();
     List<Order> getProcessingOrders();
     List<Order> getOrdersByStatus(String status);
+
+    Order getOrderDetailsByOrderId(String orderId);
 }

@@ -4,6 +4,7 @@ package com.orderservice.controller;
 import com.orderservice.dto.CustomPrincipal;
 import com.orderservice.dto.OrderRequestDto;
 import com.orderservice.exception.ApplicationException;
+import com.orderservice.model.Order;
 import com.orderservice.service.OrderService;
 import com.orderservice.util.JsonResponseEntityModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/order-service/")
+//@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 public class OrderController {
 
     private final OrderService orderService;
@@ -60,6 +62,11 @@ public class OrderController {
         responseEntityModel.setData(orderService.getOrdersByCustomerId(customerId));
         responseEntityModel.setStatusCode("200");
         return new ResponseEntity<>(responseEntityModel,HttpStatus.OK);
+    }
+
+    @GetMapping("/get/order-details/{orderId}")
+    public ResponseEntity<Order> getOrderByOrderId(@PathVariable String orderId){
+        return new ResponseEntity<>(orderService.getOrderDetailsByOrderId(orderId),HttpStatus.OK);
     }
 
 

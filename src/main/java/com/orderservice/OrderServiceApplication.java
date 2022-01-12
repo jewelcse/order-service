@@ -35,7 +35,7 @@ public class OrderServiceApplication {
 		tokenService.setCheckTokenEndpointUrl(
 				"http://localhost:9191/oauth/check_token");
 		tokenService.setClientId("web");
-		tokenService.setClientSecret("web");
+		tokenService.setClientSecret("secret");
 		return tokenService;
 	}
 
