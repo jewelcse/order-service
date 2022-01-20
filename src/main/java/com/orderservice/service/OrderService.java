@@ -11,7 +11,7 @@ public interface OrderService {
     Order saveOrder(OrderRequestDto order);
     Optional<Order> getOrderById(String id);
     List<Order> getOrders();
-    List<Order> getOrdersByCustomerId(int id);
+    List<Order> getOrdersByCustomerId(String username);
     List<Order> getCanceledOrders();
     List<Order> getCompletedOrders();
     List<Order> getProcessingOrders();

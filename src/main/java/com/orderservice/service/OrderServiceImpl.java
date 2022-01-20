@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService{
 
         Order order = new Order();
         order.setId(MethodUtils.generateOrderId());
-        order.setCustomerId(getUser().getId());
+        order.setUsername(getUser().getUsername());
         order.setProducts(orderRequestDto.getProducts());
         order.setStatus(Status.PROCESSING.toString());
 
@@ -94,9 +94,9 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    @Cacheable(value = "orders",key = "#customerId")
-    public List<Order> getOrdersByCustomerId(int customerId) {
-        return orderRepository.findAllByCustomerId(customerId);
+    @Cacheable(value = "orders",key = "#username")
+    public List<Order> getOrdersByCustomerId(String username) {
+        return orderRepository.findAllByUsername(username);
     }
 
 

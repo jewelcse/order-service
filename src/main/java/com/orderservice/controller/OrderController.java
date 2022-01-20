@@ -55,11 +55,11 @@ public class OrderController {
         return new ResponseEntity<>(responseEntityModel,HttpStatus.OK);
     }
 
-    @GetMapping("/get/orders/customerId/{customerId}")
-    public ResponseEntity<JsonResponseEntityModel> getOrdersByCustomerId(@PathVariable int customerId){
-        if (customerId<=0) throw new ApplicationException(String.format("Invalid CustomerId %s",customerId));
+    @GetMapping("/get/orders/customerId/{username}")
+    public ResponseEntity<JsonResponseEntityModel> getOrdersByCustomerId(@PathVariable String username){
+        //if (customerId<=0) throw new ApplicationException(String.format("Invalid CustomerId %s",customerId));
         responseEntityModel.setSuccess(true);
-        responseEntityModel.setData(orderService.getOrdersByCustomerId(customerId));
+        responseEntityModel.setData(orderService.getOrdersByCustomerId(username));
         responseEntityModel.setStatusCode("200");
         return new ResponseEntity<>(responseEntityModel,HttpStatus.OK);
     }

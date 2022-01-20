@@ -26,19 +26,4 @@ public class OrderServiceApplication {
 		SpringApplication.run(OrderServiceApplication.class, args);
 	}
 
-
-
-	@Primary
-	@Bean
-	public RemoteTokenServices tokenService() {
-		RemoteTokenServices tokenService = new RemoteTokenServices();
-		tokenService.setCheckTokenEndpointUrl(
-				"http://localhost:9191/oauth/check_token");
-		tokenService.setClientId("web");
-		tokenService.setClientSecret("secret");
-		return tokenService;
-	}
-
-
-
 }

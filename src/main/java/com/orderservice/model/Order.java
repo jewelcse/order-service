@@ -13,7 +13,7 @@ import java.util.List;
 @Document("orders")
 public class Order extends BaseModel{
 
-	private int customerId;
+	private String username;
 	private List<Product> products;
     private ShippingAddress shippingAddress;
     private int quantity;
