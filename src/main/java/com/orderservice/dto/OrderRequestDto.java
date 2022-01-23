@@ -15,14 +15,10 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderRequestDto {
 
-    private Customer customer;
     private List<Product> products = new ArrayList<>();
     private OrderPriority priority;
     private ShippingAddress shippingAddress;
     private double shippingCharge;
-
-
-
-
+    private String voucherCode;
 
 }

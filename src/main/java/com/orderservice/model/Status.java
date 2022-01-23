@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 public enum Status {
      PROCESSING("PROCESSING"),
      COMPLETED("COMPLETED"),
-     CASHONDELIVERY("CODL"),
+     CASHONDELIVERY("COD"),
      PAID("PAID"),
      CANCELED("CANCELED");
 

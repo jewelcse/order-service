@@ -2,6 +2,7 @@ package com.orderservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.Authentication;
@@ -18,25 +19,11 @@ import java.util.Map;
 
 
 @SpringBootApplication
+@EnableCaching
 public class OrderServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(OrderServiceApplication.class, args);
 	}
-
-
-
-	@Primary
-	@Bean
-	public RemoteTokenServices tokenService() {
-		RemoteTokenServices tokenService = new RemoteTokenServices();
-		tokenService.setCheckTokenEndpointUrl(
-				"http://localhost:9191/oauth/check_token");
-		tokenService.setClientId("web");
-		tokenService.setClientSecret("web");
-		return tokenService;
-	}
-
-
 
 }
