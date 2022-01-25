@@ -19,7 +19,6 @@ import java.util.Map;
 
 
 @SpringBootApplication
-@EnableCaching
 public class OrderServiceApplication {
 
 	public static void main(String[] args) {

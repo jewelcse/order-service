@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.*;
 import java.util.List;
 
-
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -22,5 +22,6 @@ public class Order extends BaseModel{
     private double totalAmount;
     private OrderPriority priority;
     private String status;
+    private DeliveryMan deliveryMan;
 
 }
