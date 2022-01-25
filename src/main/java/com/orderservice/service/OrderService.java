@@ -1,6 +1,7 @@
 package com.orderservice.service;
 
 import com.orderservice.dto.OrderRequestDto;
+import com.orderservice.dto.OrderUpdateDeliveryProfileDto;
 import com.orderservice.model.Order;
 
 import java.util.List;
@@ -16,6 +17,6 @@ public interface OrderService {
     List<Order> getCompletedOrders();
     List<Order> getProcessingOrders();
     List<Order> getOrdersByStatus(String status);
-
     Order getOrderDetailsByOrderId(String orderId);
+    void updateOrderDeliveryProfile(OrderUpdateDeliveryProfileDto order);
 }

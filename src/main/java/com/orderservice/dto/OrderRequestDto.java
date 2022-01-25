@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderRequestDto {
 
-    private List<Product> products = new ArrayList<>();
+    private List<Product> products;
     private OrderPriority priority;
     private ShippingAddress shippingAddress;
     private double shippingCharge;

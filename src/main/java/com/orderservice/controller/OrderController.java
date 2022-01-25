@@ -3,6 +3,7 @@ package com.orderservice.controller;
 
 import com.orderservice.dto.CustomPrincipal;
 import com.orderservice.dto.OrderRequestDto;
+import com.orderservice.dto.OrderUpdateDeliveryProfileDto;
 import com.orderservice.exception.ApplicationException;
 import com.orderservice.model.Order;
 import com.orderservice.service.OrderService;
@@ -67,6 +68,13 @@ public class OrderController {
     @GetMapping("/get/order-details/{orderId}")
     public ResponseEntity<Order> getOrderByOrderId(@PathVariable String orderId){
         return new ResponseEntity<>(orderService.getOrderDetailsByOrderId(orderId),HttpStatus.OK);
+    }
+
+    @PostMapping("/order/update/delivery/profile")
+    public void updateOrderDeliveryProfile(@RequestBody OrderUpdateDeliveryProfileDto order){
+        System.out.println(order.getOrderId());
+        System.out.println(order.getDeliveryManUsername());
+        orderService.updateOrderDeliveryProfile(order);
     }
 
 

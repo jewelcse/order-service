@@ -4,20 +4,15 @@ import com.orderservice.config.OrderConfig;
 import com.orderservice.dto.CustomPrincipal;
 import com.orderservice.dto.OrderDto;
 import com.orderservice.dto.OrderRequestDto;
+import com.orderservice.dto.OrderUpdateDeliveryProfileDto;
 import com.orderservice.exception.ApplicationException;
-import com.orderservice.model.Customer;
-import com.orderservice.model.Order;
-import com.orderservice.model.Product;
-import com.orderservice.model.Status;
+import com.orderservice.model.*;
 import com.orderservice.repository.OrderRepository;
 import com.orderservice.util.MethodUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -127,6 +122,19 @@ public class OrderServiceImpl implements OrderService{
         return orderRepository.findById(orderId).get();
     }
 
+    @Override
+    public void updateOrderDeliveryProfile(OrderUpdateDeliveryProfileDto order) {
+        Optional<Order> getOrder = orderRepository.findById(order.getOrderId());
+        Optional<DeliveryMan> deliveryMan = Optional.ofNullable(getDeliveryMan(order.getDeliveryManUsername()));
+        if (getOrder.isPresent()){
+            getOrder.get().setId(order.getOrderId());
+            getOrder.get().setDeliveryMan(deliveryMan.get());
+            orderRepository.save(getOrder.get());
+        }else {
+            throw new ApplicationException("Didn't Assigned");
+        }
+    }
+
     private Status checkValidStatus(String str){
 
         return Arrays.stream(Status.values())
@@ -154,5 +162,11 @@ public class OrderServiceImpl implements OrderService{
         Map<String, String> vars = new HashMap<>();
         vars.put("username", authentication.getPrincipal().toString());
         return restTemplate.getForObject("http://localhost:9191/api/v1/auth-service/user/{username}",CustomPrincipal.class,vars);
+    }
+
+    private DeliveryMan getDeliveryMan(String username){
+        Map<String, String> vars = new HashMap<>();
+        vars.put("username", username);
+        return restTemplate.getForObject("http://localhost:9191/api/v1/auth-service/user/{username}",DeliveryMan.class,vars);
     }
 }
